@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Predictor</title>
+    <!-- <link rel="shortcut icon" href="{{ url_for('static', filename='diabetes-favicon.ico') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://kit.fontawesome.com/5f3f547070.js" crossorigin="anonymous"></script> -->
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+</head>
+<style>
+    * {
+        box-sizing: border-box;
+
+
+    }
+
+
+
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+    }
+
+    .conclude {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    img {
+        width: 400px;
+    }
+
+    a {
+        text-decoration: none;
+        font-family: 'Times New Roman', Times, serif;
+        font-size: x-large;
+        color: blue;
+        font-weight: bolder;
+    }
+
+    h2 {
+        font-size: xx-large;
+        color: blueviolet;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    }
+
+    h1 {
+        font-size: xx-large;
+        color: black;
+        font-family: 'Times New Roman', Times, serif;
+        font-weight: 500;
+        text-shadow: 3px black;
+
+    }
+
+    img {
+        border-radius: 10px;
+        width: 400px;
+        max-height: 500px;
+    }
+
+    p {
+        color: black;
+        opacity: 0.6;
+    }
+</style>
+
+<body>
+
+    <!-- Website Title -->
+    <div class="container">
+        <h2>Heart Disease Predictor</h2>
+        <div class=' description'>
+            <p>A Machine Learning Web App, Built with Flask</p>
+        </div>
+    </div>
+
+    <!-- Result -->
+    <div class="conclude">
+        {% if prediction==1 %}
+
+        <h1>Oops! You have Chances of Heart Disease. Please Consult the Doctor</h1>
+        <img src="../static/failureheart.jpg" alt="">
+        <h1> Hey There if you want to Know the Chance of Stroke Occurrence Click the Below Link
+
+        </h1>
+        <a href="strokeprediction">Click</a>
+
+
+        {% elif prediction==0 %}
+        <h1> Great! You DON'T chances have Heart Disease</h1>
+        <img src="../static/success.jpg" alt="">
+        {% endif %}
+    </div>
+
+
+</body>
+
+</html>

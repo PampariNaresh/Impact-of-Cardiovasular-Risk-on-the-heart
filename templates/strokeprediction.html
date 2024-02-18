@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stroke Prediction</title>
+
+
+</head>
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        width: 100%;
+
+        box-sizing: border-box;
+
+
+    }
+
+    .section {
+
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        background-color: white;
+        overflow: scroll;
+
+
+    }
+
+    .section form {
+        width: 600px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        background-color: white;
+        margin: auto;
+        padding: 20px;
+        border-radius: 10px;
+
+    }
+
+
+    h1 {
+        color: wheat;
+        font-family: serif;
+        font-size: xx-large;
+        font-weight: 900;
+        text-shadow: black;
+
+    }
+
+    h3 {
+        font-size: large;
+        font-weight: 300;
+        font-weight: bolder;
+        font-family: monospace;
+        text-shadow: black;
+    }
+
+    .sumbitbutton {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 20px;
+        padding-right: 20px;
+        background-color: purple;
+        color: white;
+        border-radius: 5px;
+        border: 1px solid black;
+
+    }
+
+    div input {
+        margin-top: 1px;
+    }
+
+    input[type='text'],
+    input[type='number'] {
+        width: 150px;
+        height: 25px;
+        border: 1px solid black;
+        border-radius: 3px;
+
+        background-color: #E5EEFD;
+    }
+
+
+
+    label {
+        color: rgb(0, 0, 0);
+        opacity: 0.5;
+        font-weight: 400;
+        font-size: medium;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        text-shadow: rgb(33, 25, 25);
+
+    }
+
+    image {
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+
+
+    }
+
+    img {
+        width: 600px;
+        border-radius: 10px;
+
+    }
+
+
+
+    .heading {
+        background-color: rgb(179, 24, 179);
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+
+    }
+
+    .heading h1 {
+        position: relative;
+        top: 30px;
+        left: 15px;
+        color: white;
+
+        font-size: x-large;
+        font-family: monospace;
+        text-transform: uppercase;
+        text-shadow: black;
+
+    }
+</style>
+
+
+<body>
+    <section class="section">
+        <div class="heading">
+            <h1>Stroke Prediction</h1>
+        </div>
+        <form action="{{ url_for('strokeprediction')}}" method="POST">
+            <div>
+                <h3>Gender</h3>
+                <label for="male">Male</label>
+                <input type="radio" id="male" name="gender" value="1">
+                <label for="female">Female</label>
+                <input type="radio" id="female" name="gender" value="0">
+                <label for="other">Other</label>
+                <input type="radio" id="other" name="gender" value="2">
+            </div>
+            <div>
+                <h3>Age(Years)</h3>
+                <input class=" block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" type="number" name="age"
+                    id="age" min="18" max="100">
+            </div>
+            <div>
+                <h3>Hyper Tension</h3>
+                <label for="hypertensiontrue">Yes</label>
+                <input type="radio" id="hypertensiontrue" name="hypertension" value="1">
+                <label for="hypertensionfalse">No</label>
+                <input type="radio" id="hypertensionfalse" name="hypertension" value="0">
+            </div>
+            <div>
+                <h3>Heart Disease</h3>
+                <label for="heartdiseasetrue">Yes</label>
+                <input type="radio" id="heatdiseasetrue" name="heartdisease" value="1">
+                <label for="heartdiseasefalse">No</label>
+                <input type="radio" id="heartdiseasefalse" name="heartdisease" value="0">
+            </div>
+            <div>
+                <h3>Married Status</h3>
+                <label for="marriedtrue">Yes</label>
+                <input type="radio" id="marriedtrue" name="marriedstatus" value="1">
+                <label for="marriedfalse">No</label>
+                <input type="radio" id="marriedfalse" name="marriedstatus" value="0">
+            </div>
+            <!-- <div>
+                <h3>Work Type</h3>
+                <input type="radio" id="children" name="worktype" value="children">
+                <label for="children">Children</label>
+                <input type="radio" id="govtjob" name="worktype" value="Govt_job">
+                <label for="govtjob">Government Job</label>
+                <input type="radio" id="nonanginalpain" name="worktype" value="Never_worked">
+                <label for="neverworked">Never Worked</label>
+                <input type="radio" id="private" name="worktype" value="Private">
+                <label for="private">Private</label>
+                <input type="radio" id="selfemployed" name="worktype" value="Self-employed">
+                <label for="selfemployed">Self Employed</label>
+            </div> -->
+            <div>
+                <h3>Work Type</h3>
+                <input type="radio" id="children" name="worktype" value="0">
+                <label for="children">Children</label>
+                <input type="radio" id="govtjob" name="worktype" value="1">
+                <label for="govtjob">Government Job</label>
+                <input type="radio" id="nonanginalpain" name="worktype" value="2">
+                <label for="neverworked">Never Worked</label>
+                <input type="radio" id="private" name="worktype" value="3">
+                <label for="private">Private</label>
+                <input type="radio" id="selfemployed" name="worktype" value="4">
+                <label for="selfemployed">Self Employed</label>
+            </div>
+            <div>
+                <h3>Residence Type</h3>
+                <label for="rural">Rural</label>
+                <input type="radio" id="rural" name="residencetype" value="0">
+                <label for="female">Urban</label>
+                <input type="radio" id="urban" name="residencetype" value="1">
+            </div>
+            <div>
+                <h3>Average Glucose Level</h3>
+                <input type="number" name="gloucoselevel" id="glucoselevel">
+            </div>
+            <div>
+                <h3> Body Mass Index</h3>
+                <input type="number" name="bodymassindex" id="bodymassindex">
+            </div>
+            <div>
+                <h3>Smoking Status</h3>
+                <input type="radio" id="formerlysmoked" name="smokingstatus" value="0">
+                <label for="formerlysmoked">Formerly Smoked</label>
+                <input type="radio" id="neversmoked" name="smokingstatus" value="1">
+                <label for="neversmoked">Never Smoked</label>
+                <input type="radio" id="smokes" name="smokingstatus" value="2">
+                <label for="smokes">Smokes</label>
+                <input type="radio" id="unknown" name="swmokingstatus" value="3">
+                <label for="unknown">Unknown</label>
+
+            </div>
+            <div>
+                <h3>Submit the Details </h3>
+                <input class="sumbitbutton" type="submit" value="Predict">
+            </div>
+        </form>
+        <div class="image">
+
+            <img src="../static/strokeform.jpg" alt="">
+
+        </div>
+    </section>
+</body>
+
+</html>

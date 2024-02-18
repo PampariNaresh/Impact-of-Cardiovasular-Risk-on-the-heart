@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Home</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100vh;
+            align-items: center;
+            position: absolute;
+            background-color: aliceblue;
+
+
+        }
+
+        section {
+            position: relative;
+
+            background-color: aliceblue;
+            border-radius: 5px;
+
+
+        }
+
+        section>h1 {
+            text-align: center;
+
+        }
+
+        section>form {
+            margin: 20px 20px;
+            padding: 5px;
+            display: flex;
+            flex-direction: column;
+            width: 50vw;
+
+            position: relative;
+
+
+        }
+
+
+        div>h3 {
+
+            font-family: monospace;
+            font-weight: bold;
+            font-size: large;
+        }
+
+        div>label>h3 {
+
+            font-family: monospace;
+            font-weight: bold;
+            font-size: large;
+        }
+
+
+
+        input {
+            border: black 1px solid;
+            border-radius: 5px;
+
+        }
+
+        img {
+            background-image: url("/static/heartform.jpg");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <section id="maindiv" class="bg-white w-full absolute flex flew-row">
+        <h1 class="text-2xl font-bold text-black shadow-xl bg-violet-200 p-2 py-4 font-sans uppercase"> Heart Disease
+        </h1>
+        <form action="{{ url_for('heartdisease')}}" method="POST" class='space-y-3 relative w-3/5'>
+
+            <div>
+                <h3>Age(Years)</h3>
+                <input type="number" name="age" id="age" min="18" max="100"
+                    class="rounded p-0.2  m-0.5 w-28 border-transparent shadow-md  hover:border-slate-900">
+            </div>
+            <div>
+                <h3>Gender</h3>
+                <label for="male">Male</label>
+                <input type="radio" id="male" name="gender" value="1">
+
+                <label for="female">Female</label>
+                <input type="radio" id="female" name="gender" value="0">
+            </div>
+            <div>
+
+                <label for="trestbps">
+                    <h3>Resting Blood Pressure (Hg mm)</h3>
+                </label>
+                <input type="text" id="trestbps" name="trestbps" placeholder="A number in range [94-200] mmHg"
+                    class="rounded p-0.5 m-0.5 w-32 border-transparent shadow-md  hover:border-slate-900">
+            </div>
+            <div>
+                <h3>Serum Cholesterol (mg/dl)</h3>
+                <label for="serumcholesterol">Serum Cholesterol (mg/dl)</label>
+                <input type="number" name="serumcholesterol" id="serumcholesterol"
+                    class="rounded p-0.5 m-0.5 w-32 border-transparent shadow-md  hover:border-slate-900">
+            </div>
+            <div>
+                <h3>Chest Pain Type</h3>
+                <input type="radio" id="typicalangina" name="chestpaintype" value="0">
+                <label for="typicalangina">Typical angina</label>
+                <input type="radio" id="atypicalangina" name="chestpaintype" value="1">
+                <label for="atypicalangina">Atypical angina</label>
+                <input type="radio" id="nonanginalpain" name="chestpaintype" value="2">
+                <label for="nonanginalpain">Non-anginal pain</label>
+                <input type="radio" id="asymptomatic" name="chestpaintype" value="3">
+                <label for="asymptomatic">Asymptomatic</label>
+            </div>
+            <div>
+                <h3>Fasting Blood sugar >120mg/dl</h3>
+                <input type="radio" id="fastbloodsugertrue" name="fastbloodsuger" value="1">
+                <label for="fastbloodsugertrue">Yes</label>
+                <input type="radio" id="fastbloodsugerfalse" name="fastbloodsuger" value="0">
+                <label for="fastbloodsugerfalse">No</label>
+            </div>
+            <div>
+                <h3>Resting Electrocardiogram</h3>
+                <input type="radio" id="normal" name="restingegc" value="0">
+                <label for="normal">Noraml</label>
+                <input type="radio" id="abnormalitye" name="restingegc" value="1">
+                <label for="abnormality">Abnormal</label>
+                <input type="radio" id="hypertrophy" name="restingegc" value="2">
+                <label for="hypertrophy">Showing Probable</label>
+
+            </div>
+            <div>
+                <h3>Max Heart Rate</h3>
+                <label for="maxheartrate">Max Heart Rate</label>
+                <input type="number" name="maxheartrate" id="maxheartrate" min="71" max="202"
+                    class="rounded p-0.5 m-0.5 w-32 border-transparent shadow-md  hover:border-slate-900">
+            </div>
+            <div>
+                <h3>Exercise induced Anginal</h3>
+                <input type="radio" id="exerciseinducedanginaltrue" name="exerciseinducedanginal" value="1">
+                <label for="exerciseinducedanginaltrue">Yes</label>
+                <input type="radio" id="exerciseinducedanginalfalse" name="exerciseinducedanginal" value="0">
+                <label for="exerciseinducedanginalfalse">No</label>
+            </div>
+            <div>
+                <h3> Slope of the
+                    peak exercise ST
+                    segment</h3>
+                <input type="radio" id="upsloping" name="slope" value="0">
+                <label for="upsloping">Up Sloping</label>
+                <input type="radio" id="flat" name="slope" value="1">
+                <label for="upsloping">Flat</label>
+                <input type="radio" id="downsloping" name="slope" value="2">
+                <label for="downsloping">Down Sloping</label>
+            </div>
+
+
+            <div>
+                <label for="ca">
+                    <h3>Number of Major vessels</h3>
+                </label>
+                <input type="text" id="ca" name="ca" placeholder="Typically in [0-4]"
+                    class="rounded p-0.5 m-0.5 w-32 border-transparent shadow-md  hover:border-slate-900"><br>
+            </div>
+
+            <div><label for="oldpeak">
+                    <h3>ST depression </h3>
+                </label>
+                <input type="text" id="oldpeak" name="oldpeak" placeholder="ST depression, typically in [0-6.2]"
+                    class="rounded p-0.5 m-0.5 w-32 border-transparent"><br>
+            </div>
+            <div>
+                <label for="thal">
+                    <h3>Thalassemia </h3>
+                </label>
+                <select id="thal" name="thal">
+                    <option selected>----select option----</option>
+                    <option value="0">Normal</option>
+                    <option value="1">Fixed Defect</option>
+                    <option value="2">Reversible Defect</option>
+                </select>
+            </div>
+            <div>
+                <h3>Submit the Details </h3>
+                <input type="submit" value="Predict"
+                    class=" text-1xl  text-black bg-sky-500 hover:bg-black  hover:text-white focus:ring-4 focus:ring-purple-300 font-bold rounded-lg    hover:text-black py-1  border-transparent w-20 ">
+            </div>
+        </form>
+        <div class="flex flex-col w-4/5">
+
+            <img src="../static/heartform.jpg" class="ws-screen h-[100vh]" alt="">
+            <p
+                class="text-3xl  font-serif   drop-shadow-2xl pb-8 text-black font-semibold p-2 m-2 leading-10	text-balance">
+                Neglecting your
+                heart is
+                like neglecting your life.
+                If you want to live happily and healthily then take
+                care of your
+                heart.</p>
+        </div>
+    </section>
+</body>
+
+</html>
