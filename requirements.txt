@@ -8,7 +8,7 @@ joblib
 MarkupSafe
 numpy
 pandas
-pickle
+pickle5
 python-dateutil
 pytz
 scikit-learn
