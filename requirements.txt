@@ -11,10 +11,12 @@ pandas
 pickle-mixin
 python-dateutil
 pytz
-scikit-learn
+
 scipy
 six
 threadpoolctl
 typing_extensions
 Werkzeug
 zipp
+
+scikit-learn==0.22.1
