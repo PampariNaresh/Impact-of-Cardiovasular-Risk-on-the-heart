@@ -13,6 +13,7 @@ app = Flask(__name__)
 
 strokefilename = 'strokemodel.pkl'
 strokefilename =os.path.join(os.path.dirname(os.path.abspath(strokefilename)),strokefilename)
+strokemodel=""
 try:
     strokemodel = pickle.load(open(strokefilename, 'rb'))
 except InconsistentVersionWarning as w:
@@ -20,6 +21,7 @@ except InconsistentVersionWarning as w:
 
 heartfilename = 'heartmodel.pkl'
 heartfilename  =os.path.join(os.path.dirname(os.path.abspath(heartfilename)),heartfilename )
+heartmodel =""
 try:
     heartmodel = pickle.load(open(heartfilename, 'rb'))
 except InconsistentVersionWarning as w:
