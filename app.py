@@ -2,6 +2,9 @@ from flask import Flask, render_template, request
 import pickle
 import numpy as np
 import os
+import warnings
+from sklearn.exceptions import InconsistentVersionWarning
+warnings.simplefilter("error", InconsistentVersionWarning)
 
 app = Flask(__name__)
 
@@ -10,11 +13,17 @@ app = Flask(__name__)
 
 strokefilename = 'strokemodel.pkl'
 strokefilename =os.path.join(os.path.dirname(os.path.abspath(strokefilename)),strokefilename)
-strokemodel = pickle.load(open(strokefilename, 'rb'))
+try:
+    strokemodel = pickle.load(open(strokefilename, 'rb'))
+except InconsistentVersionWarning as w:
+   print(w.original_sklearn_version)
 
 heartfilename = 'heartmodel.pkl'
 heartfilename  =os.path.join(os.path.dirname(os.path.abspath(heartfilename)),heartfilename )
-heartmodel = pickle.load(open(heartfilename, 'rb'))
+try:
+    heartmodel = pickle.load(open(heartfilename, 'rb'))
+except InconsistentVersionWarning as w:
+   print(w.original_sklearn_version)
 
 @app.route("/")
 def home():
