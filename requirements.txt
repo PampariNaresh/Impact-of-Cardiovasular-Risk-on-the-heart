@@ -20,3 +20,4 @@ Werkzeug
 zipp
 
 scikit-learn==0.22.1
+-e .
