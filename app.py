@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-import pickle5 as pickle
+import pickle
 import numpy as np
 import os
 import warnings
