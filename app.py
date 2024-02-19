@@ -1,25 +1,25 @@
 from flask import Flask, render_template, request
-import pickle
+
 import numpy as np
 import os
 import warnings
-
+import pandas as pd
 app = Flask(__name__)
 
 
 
-
-strokefilename = 'strokemodel.pkl'
+from joblib import dump, load
+strokefilename = 'strokemodel1.joblib'
 strokefilename =os.path.join(os.path.dirname(os.path.abspath(strokefilename)),strokefilename)
 global strokemodel
-strokemodel = pickle.load(open(strokefilename, 'rb'))
+strokemodel = load(open(strokefilename, 'rb'))
 
 
-heartfilename = 'heartmodel.pkl'
+heartfilename = 'heartmodel1.joblib'
 heartfilename  =os.path.join(os.path.dirname(os.path.abspath(heartfilename)),heartfilename )
 global heartmodel
 
-heartmodel = pickle.load(open(heartfilename, 'rb'))
+heartmodel = load(open(heartfilename, 'rb'))
 
 
 @app.route("/")
@@ -57,79 +57,88 @@ def heartdisease():
 def strokeprediction():   
     if request.method == 'POST':
         age = int(request.form['age'])
+        print(age)
         gender = float(request.form.get('gender'))
-        gender_encoded_Female=0
-        gender_encoded_Male=0
-        gender_encoded_Other=0
+        print(gender)
+        gender_Male=0
+        gender_Other=0
         if(gender==1):
-            gender_encoded_Male=1
-        elif(gender==0):
-            gender_encoded_Female=1
+            gender_Male=1
+            print(gender_Male)
         elif(gender==2):
-             gender_encoded_Other=1
+             gender_Other=1
+             print(gender_Other)
+        elif(gender==0):
+            gender_Male=0
+            print(gender_Male)
 
-        hypertension = int(request.form.get('hypertension'))
-        heart_disease = int(request.form['heartdisease'])
-        ever_married = int(request.form['marriedstatus'])
+        hypertension_1 = int(request.form.get('hypertension'))
+        
+        heart_disease_1 = int(request.form['heartdisease'])
+        
+        ever_married_Yes = int(request.form['marriedstatus'])
+        
         worktype =int( request.form.get('worktype'))
         
-        work_type_encoded_Govt_job=0
-        work_type_encoded_Never_worked=0
-        work_type_encoded_Private=0
-        work_type_encoded_Self_employed=0
-        work_type_encoded_children=0
+        
+        # work_type_encoded_Govt_job=0
+        work_type_Never_worked=0
+        work_type_Private=0
+        work_type_Self_employed=0
+        work_type_children=0
         if(worktype==0):
-            work_type_encoded_children=1
-        elif(worktype==1):
-            work_type_encoded_Govt_job=1
+            work_type_children=1
+            print(work_type_children)
+        # elif(worktype==1):
+        #     work_type_encoded_Govt_job=1
+            
         elif(worktype==2):
-            work_type_encoded_Never_worked=1
+            work_type_Never_worked=1
+            
         elif(worktype==3):
-             work_type_encoded_Private=1
+             work_type_Private=1
+             
         elif(worktype==4):
-            work_type_encoded_Self_employed=1
+            work_type_Self_employed=1
+            
             
        
 
-        Residence_type = int(request.form['residencetype'])
-        avg_glucose_level = int(request.form['gloucoselevel'])
-        bmi = int(request.form.get('bodymassindex'))
+        Residence_type_Urban = int(request.form['residencetype'])
+    
+        avg_glucose_level = float(request.form['gloucoselevel'])
+        
+        bmi = float(request.form.get('bodymassindex'))
+       
         smoking_status = int(request.form['smokingstatus'])
-        smoking_status_encoded_Unknown=0
-        smoking_status_encoded_formerly_smoked =0
-        smoking_status_encoded_never_smoked =0
-        smoking_status_encoded_smokes =0
+        print(smoking_status)
+        #smoking_status_encoded_Unknown=0
+        smoking_status_formerly_smoked =0
+        smoking_status_never_smoked =0
+        smoking_status_smokes =0
         if(smoking_status==0):
-            smoking_status_encoded_formerly_smoked =1
+            smoking_status_formerly_smoked =1
+            
         elif(smoking_status==1):
-            smoking_status_encoded_never_smoked =1
+            smoking_status_never_smoked =1
+            
         elif(smoking_status==2):
-              smoking_status_encoded_smokes =1
-        elif(smoking_status==3):
-             smoking_status_encoded_Unknown=1
+              smoking_status_smokes =1
+              
+        # elif(smoking_status==3):
+        #      smoking_status_encoded_Unknown=1
+        #      print(smoking_status_encoded_Unknown)
         
         
         
-        data = np.array([[age,
-        hypertension,
-        heart_disease,
-        ever_married,
-        Residence_type,
-        avg_glucose_level,
-        bmi,
-        gender_encoded_Female,
-        gender_encoded_Male,
-        gender_encoded_Other,
-        work_type_encoded_Govt_job,
-        work_type_encoded_Never_worked,
-        work_type_encoded_Private,
-        work_type_encoded_Self_employed,
-        work_type_encoded_children,
-        smoking_status_encoded_Unknown,
-        smoking_status_encoded_formerly_smoked,
-        smoking_status_encoded_never_smoked,
-        smoking_status_encoded_smokes]])
-        my_prediction = strokemodel.predict(data)
+        input_features = [age	,avg_glucose_level,	bmi	,gender_Male,gender_Other,hypertension_1,	heart_disease_1,ever_married_Yes,	work_type_Never_worked,	work_type_Private,	work_type_Self_employed,	work_type_children	,Residence_type_Urban,	smoking_status_formerly_smoked,smoking_status_never_smoked	,smoking_status_smokes]
+
+        features_value = [np.array(input_features)]
+        features_name = ['age'	,'avg_glucose_level',	'bmi'	,'gender_Male'	,'gender_Other','hypertension_1',	'heart_disease_1','ever_married_Yes',	'work_type_Never_worked',	'work_type_Private',	'work_type_Self-employed',	'work_type_children'	,'Residence_type_Urban',	'smoking_status_formerly smoked','smoking_status_never smoked'	,'smoking_status_smokes']
+        df = pd.DataFrame(features_value, columns=features_name)
+        my_prediction = strokemodel.predict(df)
+        print(my_prediction)
+
         return render_template('strokeresult.html', prediction=my_prediction)
     elif request.method == 'GET':
         return render_template('strokeprediction.html')

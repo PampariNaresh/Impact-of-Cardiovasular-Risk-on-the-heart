@@ -123,6 +123,16 @@ label = ['stroke']
 
 X = strokedata[features]
 y = strokedata[label]
+
+from imblearn.over_sampling import RandomOverSampler
+
+# Performing a minority oversampling
+oversample = RandomOverSampler(sampling_strategy='minority')
+
+
+# Obtaining the oversampled dataframes - testing and training
+X, y = oversample.fit_resample(X, y)
+
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=3) 
 sc=StandardScaler()
@@ -149,7 +159,7 @@ for x in range(100):
 
 rf = RandomForestClassifier(random_state=best_x)
 rf.fit(X_train,y_train.values.ravel())
-import pickle
+import pickle5 as pickle
 
 with open('strokemodel.pkl','wb') as f:
   pickle.dump(rf,f)
